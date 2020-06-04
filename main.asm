@@ -1,15 +1,29 @@
+;-------------------------------------------------------
+; Cookie Clicker Projekt
+;-------------------------------------------------------
 CSEG AT 0H
 jmp init
 ORG 100H
 
+
+;-------------------------------------------------------
+; Win: TODO
+;-------------------------------------------------------
 win:
-;init register
+
+;-------------------------------------------------------
+; Init: Initialisiert Register
+;-------------------------------------------------------
 init:
 	mov r0,#00h
 	mov r1,#00h
 	mov r2,#00h
 	mov r3,#00h
 	mov p1,#00h
+
+;-------------------------------------------------------
+; Main: Main Loop
+;-------------------------------------------------------
 main:
 	call zeigen
 	cjne r0, #09h, count_0
@@ -21,7 +35,9 @@ main:
 
 jmp main
 
-
+;-------------------------------------------------------
+; Counter: zählt Register hoch
+;-------------------------------------------------------
 count_0:
 	inc r0
 	jmp resume
@@ -49,13 +65,6 @@ count_3:
 
 ;-------------------------------------------------------
 ; Anzeigewerte: holt die Anzeigewerte aus der Datenbank
-; - erst wird aus dem Hex_Wert ein Dezimalwert : BCD-Umrechnung
-; dann wird der Wert mit @A+DPTR aus der Datenbank 
-; in die Register geschrieben
-; 1er Sekunden => P3=R2
-; 10er Sekunden => P3=R3
-; 1er Minuten  => P3=R4
-; 10er Minuten  => P3=R5
 ;-------------------------------------------------------
 zeigen:
 mov DPTR, #table
