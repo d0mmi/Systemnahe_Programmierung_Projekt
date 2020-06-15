@@ -13,21 +13,34 @@ init:
 	mov r1,#00h
 	mov r2,#00h
 	mov r3,#00h
-	mov p1,#00h
+	mov 42h, #00h
 
 ;-------------------------------------------------------
 ; Main: Main Loop
 ;-------------------------------------------------------
 main:
-	call zeigen
+	jmp pressed
+count:
 	cjne r0, #09h, count_0
 	cjne r1, #09h, count_1
 	cjne r2, #09h, count_2
 	cjne r3, #09h, count_3
 	jmp win
 	resume:
+	call zeigen
 
 jmp main
+
+;-------------------------------------------------------
+; Button ist gedrückt:
+;-------------------------------------------------------
+pressed:
+	mov A, 42h
+	mov 42h, P1
+	cjne A, 42h,count
+	jmp resume
+
+
 
 ;-------------------------------------------------------
 ; Counter: zählt Register hoch
@@ -57,10 +70,15 @@ count_3:
 
 
 ;-------------------------------------------------------
-; Win: TODO
+; Win: TODO Add Fancy Display
 ;-------------------------------------------------------
 win:
-	jmp init
+	mov r0,#00h
+	mov r1,#00h
+	mov r2,#00h
+	mov r3,#00h
+	mov 42h, #00h
+	jmp main
 
 ;-------------------------------------------------------
 ; Anzeigewerte: holt die Anzeigewerte aus der Datenbank
